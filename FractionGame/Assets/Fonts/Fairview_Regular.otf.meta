@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 084a2b9106faaa8478fd3a17d3aac56b
+timeCreated: 1522158860
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Fairview
+  fontNames:
+  - Fairview
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
