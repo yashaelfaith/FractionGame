@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/LevelTemplate.unity
+- path: Assets/_Scenes/LevelTemplate.unity
   isLoaded: 1
   isActive: 1
