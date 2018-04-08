@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/_Scenes/MediumGameplay.unity
+- path: Assets/_Scenes/HardGameplay.unity
   isLoaded: 1
   isActive: 1
