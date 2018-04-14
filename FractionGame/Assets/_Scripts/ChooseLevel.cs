@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ChooseLevel : MonoBehaviour {
 
-    public void SaveLevel(int idx) // 0: easy, 1: medium, 2: hard
+    public void SaveLevel(int idx) // 0: lv1, 1: lv2, 2: lv3, 3: lv4, 4: lv5
     {
-        if (idx >= 0 && idx <= 2)
+        if (idx >= 0 && idx <= 4)
         {
             PlayerPrefs.SetInt("level", idx);
         }

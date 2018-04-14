@@ -49,102 +49,204 @@ public class HardGameplay : MonoBehaviour {
         {
             questions.Add(t.gameObject);
         }
-
-        for (int i = 0; i < questions.Count; i++)
+        if (level == 3)
         {
-            List<GameObject> items = new List<GameObject>();
-            foreach (RectTransform t in questions[i].transform)
+            for (int i = 0; i < questions.Count; i++)
             {
-                items.Add(t.gameObject);
-            }
-            items[0].SetActive(false);
-            imgDisabled.Add(items[0]); // add ImgDisabled to list
+                List<GameObject> items = new List<GameObject>();
+                foreach (RectTransform t in questions[i].transform)
+                {
+                    items.Add(t.gameObject);
+                }
+                items[0].SetActive(false);
+                imgDisabled.Add(items[0]); // add ImgDisabled to list
 
-            items[1].SetActive(false);
-            imgChosen.Add(items[1]); // add ImgChosen to list
+                items[1].SetActive(false);
+                imgChosen.Add(items[1]); // add ImgChosen to list
 
-            img.Add(items[2]); // add Img to list
+                img.Add(items[2]); // add Img to list
 
-            List<GameObject> subitems = new List<GameObject>();
-            foreach (RectTransform t in items[3].transform)
-            {
-                subitems.Add(t.gameObject);
-            }
+                List<GameObject> subitems = new List<GameObject>();
+                foreach (RectTransform t in items[3].transform)
+                {
+                    subitems.Add(t.gameObject);
+                }
 
-            // initialize fraction value and images
-            if (i == 0)
-            {
-                subitems[0].GetComponent<InputField>().text = "".ToString();
-                subitems[2].GetComponent<InputField>().text = "".ToString();
+                // initialize fraction value and images
+                if (i == 0)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                numbers.Add((float)4 / (float)8);
-                numerators.Add(-1);
-                denumerators.Add(-1);
-            }
-            else if (i == 1)
-            {
-                subitems[0].GetComponent<InputField>().text = "".ToString();
-                subitems[2].GetComponent<InputField>().text = "".ToString();
+                    numbers.Add((float)4 / (float)8);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 1)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                numbers.Add((float)10 / (float)12);
-                numerators.Add(-1);
-                denumerators.Add(-1);
-            }
-            else if (i == 2)
-            {
-                subitems[0].GetComponent<InputField>().text = "".ToString();
-                subitems[2].GetComponent<InputField>().text = "".ToString();
+                    numbers.Add((float)10 / (float)12);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 2)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                numbers.Add((float)1 / (float)5);
-                numerators.Add(-1);
-                denumerators.Add(-1);
-            }
-            else if (i == 3)
-            {
-                subitems[0].GetComponent<InputField>().text = "".ToString();
-                subitems[2].GetComponent<InputField>().text = "".ToString();
+                    numbers.Add((float)1 / (float)5);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 3)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                numbers.Add((float)2 / (float)5);
-                numerators.Add(1);
-                denumerators.Add(-1);
-            }
-            else if (i == 4)
-            {
-                subitems[0].GetComponent<InputField>().text = "".ToString();
-                subitems[2].GetComponent<InputField>().text = "".ToString();
+                    numbers.Add((float)2 / (float)5);
+                    numerators.Add(1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 4)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                numbers.Add((float)5 / (float)6);
-                numerators.Add(-1);
-                denumerators.Add(-1);
-            }
-            else if (i == 5)
-            {
-                subitems[0].GetComponent<InputField>().text = "".ToString();
-                subitems[2].GetComponent<InputField>().text = "".ToString();
+                    numbers.Add((float)5 / (float)6);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 5)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                numbers.Add((float)2 / (float)10);
-                numerators.Add(-1);
-                denumerators.Add(-1);
-            }
-            else if (i == 6)
-            {
-                subitems[0].GetComponent<InputField>().text = "".ToString();
-                subitems[2].GetComponent<InputField>().text = "".ToString();
+                    numbers.Add((float)2 / (float)10);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 6)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                numbers.Add((float)4 / (float)10);
-                numerators.Add(-1);
-                denumerators.Add(-1);
-            }
-            else // (i == 7)
-            {
-                subitems[0].GetComponent<InputField>().text = "".ToString();
-                subitems[2].GetComponent<InputField>().text = "".ToString();
+                    numbers.Add((float)4 / (float)10);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else // (i == 7)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                numbers.Add((float)3 / (float)6);
-                numerators.Add(-1);
-                denumerators.Add(-1);
+                    numbers.Add((float)3 / (float)6);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
             }
         }
+        else // (level == 4)
+        {
+            Debug.Log("yeyeyey");
+            for (int i = 0; i < questions.Count; i++)
+            {
+                List<GameObject> items = new List<GameObject>();
+                foreach (RectTransform t in questions[i].transform)
+                {
+                    items.Add(t.gameObject);
+                }
+                items[0].SetActive(false);
+                imgDisabled.Add(items[0]); // add ImgDisabled to list
+
+                items[1].SetActive(false);
+                imgChosen.Add(items[1]); // add ImgChosen to list
+
+                img.Add(items[2]); // add Img to list
+
+                List<GameObject> subitems = new List<GameObject>();
+                foreach (RectTransform t in items[3].transform)
+                {
+                    subitems.Add(t.gameObject);
+                }
+
+                // initialize fraction value and images
+                if (i == 0)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
+
+                    numbers.Add((float)9 / (float)12);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 1)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
+
+                    numbers.Add((float)4 / (float)12);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 2)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
+
+                    numbers.Add((float)3 / (float)4);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 3)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
+
+                    numbers.Add((float)10 / (float)12);
+                    numerators.Add(1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 4)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
+
+                    numbers.Add((float)6 / (float)8);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 5)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
+
+                    numbers.Add((float)4 / (float)6);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else if (i == 6)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
+
+                    numbers.Add((float)2 / (float)6);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+                else // (i == 7)
+                {
+                    subitems[0].GetComponent<InputField>().text = "".ToString();
+                    subitems[2].GetComponent<InputField>().text = "".ToString();
+
+                    numbers.Add((float)5 / (float)6);
+                    numerators.Add(-1);
+                    denumerators.Add(-1);
+                }
+            }
+        }
+        
 
         for (int i = 0; i < 8; i++)
         {
@@ -208,12 +310,20 @@ public class HardGameplay : MonoBehaviour {
                     // go to next level
                     if (allDisabled)
                     {
-                        foreach (RectTransform t in Finish.transform)
+                        if (level == 3)
                         {
-                            finishObject.Add(t.gameObject);
+                            level++;
+                            PlayerPrefs.SetInt("level", level);
+                            SceneManager.LoadScene(3 + level);
+                        } else // (level == 4)
+                        {
+                            foreach (RectTransform t in Finish.transform)
+                            {
+                                finishObject.Add(t.gameObject);
+                            }
+                            finishObject[5].GetComponent<Text>().text = score_value.ToString();
+                            Finish.SetActive(true);
                         }
-                        finishObject[5].GetComponent<Text>().text = score_value.ToString();
-                        Finish.SetActive(true);
                     }
                 }
                 else

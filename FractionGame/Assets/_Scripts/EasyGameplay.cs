@@ -42,14 +42,14 @@ public class EasyGameplay : MonoBehaviour {
         }
 
         // if easy then show 3 pairs problems
-        if (level == 0 || level == 1)
+        if (level == 0 || level == 1 || level == 2)
         {
             transform.gameObject.SetActive(true);
             foreach (RectTransform t in transform)
             {
                 questions.Add(t.gameObject);
             }
-            if (level == 0) // easy
+            if (level == 0) // Level 1
             {
                 for (int i = 0; i < questions.Count; i++)
                 {
@@ -106,7 +106,86 @@ public class EasyGameplay : MonoBehaviour {
                     } 
                 }
             
-            } else // medium
+            } else if (level == 1) // Level 2
+            {
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    List<GameObject> items = new List<GameObject>();
+                    foreach (RectTransform t in questions[i].transform)
+                    {
+                        items.Add(t.gameObject);
+                    }
+                    items[0].SetActive(false);
+                    imgDisabled.Add(items[0]); // add ImgDisabled to list
+
+                    items[1].SetActive(false);
+                    imgChosen.Add(items[1]); // add ImgChosen to list
+
+                    img.Add(items[2]); // add Img to list
+
+                    List<GameObject> subitems = new List<GameObject>();
+                    foreach (RectTransform t in items[3].transform)
+                    {
+                        subitems.Add(t.gameObject);
+                    }
+
+                    // initialize fraction value and images
+                    if (i == 0)
+                    {
+                        subitems[0].GetComponent<InputField>().text = 1.ToString();
+                        subitems[2].GetComponent<InputField>().text = 4.ToString();
+
+                        numbers.Add((float) 1/ (float) 4);
+                        numerators.Add(1);
+                        denumerators.Add(4);
+                    }
+                    else if (i == 1)
+                    {
+                        subitems[0].GetComponent<InputField>().text = 2.ToString();
+                        subitems[2].GetComponent<InputField>().text = 3.ToString();
+
+                        numbers.Add((float) 2/ (float) 3);
+                        numerators.Add(2);
+                        denumerators.Add(3);
+                    }
+                    else if (i == 2)
+                    {
+                        subitems[0].GetComponent<InputField>().text = 3.ToString();
+                        subitems[2].GetComponent<InputField>().text = 5.ToString();
+
+                        numbers.Add((float) 3/ (float) 5);
+                        numerators.Add(3);
+                        denumerators.Add(5);
+                    }
+                    else if (i == 3)
+                    {
+                        subitems[0].GetComponent<InputField>().text = 2.ToString();
+                        subitems[2].GetComponent<InputField>().text = 8.ToString();
+
+                        numbers.Add((float) 2/ (float) 8);
+                        numerators.Add(2);
+                        denumerators.Add(8);
+                    }
+                    else if (i == 4)
+                    {
+                        subitems[0].GetComponent<InputField>().text = 4.ToString();
+                        subitems[2].GetComponent<InputField>().text = 6.ToString();
+
+                        numbers.Add((float) 4/ (float) 6);
+                        numerators.Add(4);
+                        denumerators.Add(6);
+                    }
+                    else // (i == 5)
+                    {
+                        subitems[0].GetComponent<InputField>().text = 6.ToString();
+                        subitems[2].GetComponent<InputField>().text = 10.ToString();
+
+                        numbers.Add((float) 6/ (float) 10);
+                        numerators.Add(6);
+                        denumerators.Add(10);
+                    }
+                }
+            } else // Level 3
             {
                 for (int i = 0; i < questions.Count; i++)
                 {
@@ -135,7 +214,7 @@ public class EasyGameplay : MonoBehaviour {
                         subitems[0].GetComponent<InputField>().text = "".ToString();
                         subitems[2].GetComponent<InputField>().text = 5.ToString();
 
-                        numbers.Add((float) 4/ (float) 5);
+                        numbers.Add((float)4 / (float)5);
                         numerators.Add(-1);
                         denumerators.Add(5);
                     }
@@ -144,7 +223,7 @@ public class EasyGameplay : MonoBehaviour {
                         subitems[0].GetComponent<InputField>().text = 2.ToString();
                         subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                        numbers.Add((float) 2/ (float) 8);
+                        numbers.Add((float)2 / (float)8);
                         numerators.Add(2);
                         denumerators.Add(-1);
                     }
@@ -153,7 +232,7 @@ public class EasyGameplay : MonoBehaviour {
                         subitems[0].GetComponent<InputField>().text = "".ToString();
                         subitems[2].GetComponent<InputField>().text = 3.ToString();
 
-                        numbers.Add((float) 2/ (float) 3);
+                        numbers.Add((float)2 / (float)3);
                         numerators.Add(-1);
                         denumerators.Add(3);
                     }
@@ -162,7 +241,7 @@ public class EasyGameplay : MonoBehaviour {
                         subitems[0].GetComponent<InputField>().text = 1.ToString();
                         subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                        numbers.Add((float) 1/ (float) 4);
+                        numbers.Add((float)1 / (float)4);
                         numerators.Add(1);
                         denumerators.Add(-1);
                     }
@@ -171,7 +250,7 @@ public class EasyGameplay : MonoBehaviour {
                         subitems[0].GetComponent<InputField>().text = "".ToString();
                         subitems[2].GetComponent<InputField>().text = 9.ToString();
 
-                        numbers.Add((float) 6/ (float) 9);
+                        numbers.Add((float)6 / (float)9);
                         numerators.Add(-1);
                         denumerators.Add(9);
                     }
@@ -180,7 +259,7 @@ public class EasyGameplay : MonoBehaviour {
                         subitems[0].GetComponent<InputField>().text = 8.ToString();
                         subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                        numbers.Add((float) 8/ (float) 10);
+                        numbers.Add((float)8 / (float)10);
                         numerators.Add(8);
                         denumerators.Add(-1);
                     }
@@ -215,6 +294,9 @@ public class EasyGameplay : MonoBehaviour {
         {
             EasyGameplayRelaxMode();
         } else if (level == 1)
+        {
+            MediumGameplayRelaxMode();
+        } else if (level == 2)
         {
             MediumGameplayRelaxMode();
         }
