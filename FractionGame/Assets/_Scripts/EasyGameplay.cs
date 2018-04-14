@@ -482,7 +482,7 @@ public class EasyGameplay : MonoBehaviour {
             int imageTag = idx;
 
             // set image to choose mode
-            img[imageTag].SetActive(false);
+            img[imageTag].SetActive(true);
             imgDisabled[imageTag].SetActive(false);
             imgChosen[imageTag].SetActive(true);
 
@@ -506,7 +506,7 @@ public class EasyGameplay : MonoBehaviour {
                     int imageTag = Int32.Parse(clicked_collider.gameObject.tag);
 
                     // set image to choose mode
-                    img[imageTag].SetActive(false);
+                    img[imageTag].SetActive(true);
                     imgDisabled[imageTag].SetActive(false);
                     imgChosen[imageTag].SetActive(true);
 

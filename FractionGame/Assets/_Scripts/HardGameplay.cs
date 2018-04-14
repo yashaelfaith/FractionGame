@@ -360,7 +360,7 @@ public class HardGameplay : MonoBehaviour {
             int imageTag = idx;
 
             // set image to choose mode
-            img[imageTag].SetActive(false);
+            img[imageTag].SetActive(true);
             imgDisabled[imageTag].SetActive(false);
             imgChosen[imageTag].SetActive(true);
 
