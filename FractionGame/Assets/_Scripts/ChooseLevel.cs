@@ -19,4 +19,9 @@ public class ChooseLevel : MonoBehaviour {
             PlayerPrefs.SetInt("mode", idx);
         }
     }
+
+    public void ResetScore()
+    {
+        PlayerPrefs.SetInt("score", 0);
+    }
 }

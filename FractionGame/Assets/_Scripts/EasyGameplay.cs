@@ -6,8 +6,14 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class EasyGameplay : MonoBehaviour {
-    public GameObject time;
+    public Text time;
     public Text score;
+    public GameObject gameOver;
+
+    private bool stop_time = false;
+    private float time_start;
+    private float time_value;
+    private float time_init;
 
     private int level; // 0: easy, 1: medium, 2: hard
     private bool relax = false; // relax false means challenge
@@ -18,6 +24,7 @@ public class EasyGameplay : MonoBehaviour {
     private List<GameObject> img = new List<GameObject>();
     private List<GameObject> imgDisabled = new List<GameObject>();
     private List<GameObject> imgChosen = new List<GameObject>();
+    private List<GameObject> gameOverComponent = new List<GameObject>();
 
     private int selected = -1;
 
@@ -26,6 +33,12 @@ public class EasyGameplay : MonoBehaviour {
         PlayerPrefs.SetInt("selected", -1);
 
         level = PlayerPrefs.GetInt("level");
+        if (level == 0)
+        {
+            PlayerPrefs.SetInt("score", 0);
+        }
+
+        score.text = PlayerPrefs.GetInt("score").ToString();
 
         if (PlayerPrefs.GetInt("mode") == 0)
         {
@@ -35,10 +48,23 @@ public class EasyGameplay : MonoBehaviour {
         // if relax then hide time
         if (relax)
         {
-            time.SetActive(false);
+            time.gameObject.SetActive(false);
         } else
         {
-            time.SetActive(true);
+            time.gameObject.SetActive(true);
+            time_start = Time.time;
+            time_value = 300;
+            time_init = 301;
+            if (level == 0)
+            {
+                PlayerPrefs.SetFloat("time", time_value);
+            } else
+            {
+                time_value = PlayerPrefs.GetFloat("time");
+                time_init = time_value;
+            }
+
+            time.text = time_value.ToString();
         }
 
         // if easy then show 3 pairs problems
@@ -284,7 +310,25 @@ public class EasyGameplay : MonoBehaviour {
             RelaxMode();
         } else
         {
+            if (!stop_time)
+            {
+                time_value = time_init - (Time.time - time_start);
+                if (time_value <= 0)
+                {
+                    int score_value = Int32.Parse(score.text);
+                    // finishObject = Finish.Gameobject
+                    foreach (RectTransform t in gameOver.transform)
+                    {
+                        gameOverComponent.Add(t.gameObject);
+                    }
+                    gameOverComponent[5].GetComponent<Text>().text = score_value.ToString();
+                    gameOver.SetActive(true);
 
+                    stop_time = true;
+                }
+                time.text = ((int) time_value).ToString();
+                RelaxMode();
+            }
         }
     }
 
@@ -359,6 +403,8 @@ public class EasyGameplay : MonoBehaviour {
                     {
                         level++;
                         PlayerPrefs.SetInt("level", level);
+                        PlayerPrefs.SetInt("score", score_value);
+                        PlayerPrefs.SetFloat("time", time_value);
                         SceneManager.LoadScene(3 + level);
                     }
                 }
@@ -445,6 +491,8 @@ public class EasyGameplay : MonoBehaviour {
                     {
                         level++;
                         PlayerPrefs.SetInt("level", level);
+                        PlayerPrefs.SetInt("score", score_value);
+                        PlayerPrefs.SetFloat("time", time_value);
                         SceneManager.LoadScene(3 + level);
                     }
                 }
@@ -499,7 +547,6 @@ public class EasyGameplay : MonoBehaviour {
 
             if (clicked_collider != null)
             {
-                Debug.Log("click + " + clicked_collider.gameObject.tag);
                 // if has not been disabled
                 if (PlayerPrefs.GetInt(clicked_collider.gameObject.tag) == 0)
                 {
@@ -525,12 +572,22 @@ public class EasyGameplay : MonoBehaviour {
             if (gameObject.name == "Num")
             {
                 numerators[tag] = Int32.Parse(gameObject.GetComponent<InputField>().text);
-                Debug.Log("num:" + numerators[tag]);
             } else 
             {
                 denumerators[tag] = Int32.Parse(gameObject.GetComponent<InputField>().text);
-                Debug.Log("denum:" + denumerators[tag]);
             }
         }
+    }
+
+    public void PauseGame()
+    {
+        time_init = time_value;
+        stop_time = true;
+    }
+
+    public void ResumeGame()
+    {
+        time_start = Time.time;
+        stop_time = false;
     }
 }

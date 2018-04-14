@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +43,6 @@ public class NewHighScore : MonoBehaviour {
     public GameObject GameOver;
     public GameObject Finish;
     public Text usernameInput;
-    public TextAsset rankList;
     public Text currentScore;
 
     private List<string> rankParse;
@@ -53,33 +50,54 @@ public class NewHighScore : MonoBehaviour {
     private bool newHighScore = false;
     private bool doneInput = false;
     private bool hasChecked = false;
+    private bool isEmpty = false;
+    private int length = 0;
+    private string path;
+    private string content;
 
     void Start () {
+        path = Directory.GetCurrentDirectory();
+        if (!File.Exists(path + "/MatchMe_Data/Data/highscore.txt"))
+        {
+            Directory.CreateDirectory(path + "/MatchMe_Data/Data");
+            File.WriteAllText(path + "/MatchMe_Data/Data/highscore.txt", "player 50");
+        }
+        content = File.ReadAllText(path + "/MatchMe_Data/Data/highscore.txt");
+        
         // parsing external file by '\n'
-        rankParse = rankList.text.Split('\n').ToList();
+        rankParse = content.Split('\n').ToList();
+        if (rankParse[0] == "")
+            isEmpty = true;
         // making list of user from rankParse
         rankData = new List<User>();
-        for (int i = 0; i < 5; i++)
+        if (!isEmpty)
+        {
+            length = rankParse.Count;
+        }
+        for (int i = 0; i < length; i++)
         {
             List<string> data = rankParse[i].Split(' ').ToList();
             rankData.Add(new User());
             rankData[i].Username = data[0];
             rankData[i].Score = Int32.Parse(data[1]);
         }
-	}
+    }
 	
 	void Update () {        
         // Function check if the user got into the top 5
         // Checking only done once, when it is GameOver or Finished and haven't input username
         if ( ( (GameOver.activeSelf) || (Finish.activeSelf) ) && (!doneInput) && (!hasChecked) )
         {
-            for (int i = 0; i < 5; i++)
+            if (isEmpty || length < 5)
+            {
+                newHighScore = true;
+            }
+            for (int i = 0; i < length; i++)
             {
                 if (Int32.Parse(currentScore.text) > rankData[i].Score)
                 {
                     newHighScore = true;
                 }
-                //Debug.Log(rankData[i].Username);
             }
             // Showing the InsertName Display if current score is a new HighScore
             if (newHighScore)
@@ -88,35 +106,36 @@ public class NewHighScore : MonoBehaviour {
             }
             hasChecked = true;
         }
+
     }
 
     // Function triggered when done giving input
     public void NameInsert () {
         // Make new list component
         rankData.Add(new User());
-        rankData[5].Username = usernameInput.text;
-        rankData[5].Score = Int32.Parse(currentScore.text);
+        rankData[length].Username = usernameInput.text;
+        rankData[length].Score = Int32.Parse(currentScore.text);
 
         // Sorting the list by score
         List<User> sortedList = rankData.OrderByDescending(o => o.Score).ToList();
 
         // replace highscore.txt with empty highscore.txt
-        StreamWriter writer = new StreamWriter("Assets/Resources/Data/highscore.txt", false);      
+        StreamWriter writer = new StreamWriter(path + "/MatchMe_Data/Data/highscore.txt", false);
 
         // writing highscore.txt
         // loop until count-1 so that highscore.txt only have 5 data
-        for (int i = 0; i < sortedList.Count-1; i++)
+        int listLength = sortedList.Count;
+        if (listLength > 5)
+            listLength = 5;
+
+        for (int i = 0; i < listLength; i++)
         {
-            //Debug.Log(sortedList[i].Rank);
-            //Debug.Log(sortedList[i].Username);
-            //Debug.Log(sortedList[i].Score);
             writer.Write(sortedList[i].Username);
             writer.Write(" ");
             writer.WriteLine(sortedList[i].Score.ToString());
         }
         writer.Close();
-        AssetDatabase.ImportAsset("Assets/Resources/Data/highscore.txt");
-
+        
         // Removing InsertName Display
         InsertName.SetActive(false);
 

@@ -7,9 +7,15 @@ using UnityEngine.UI;
 
 public class HardGameplay : MonoBehaviour {
 
-    public GameObject time;
+    public Text time;
     public GameObject Finish;
     public Text score;
+    public GameObject gameOver;
+
+    private bool stop_time = false;
+    private float time_start;
+    private float time_value;
+    private float time_init;
 
     private int level; // 0: easy, 1: medium, 2: hard
     private bool relax = false; // relax false means challenge
@@ -21,6 +27,7 @@ public class HardGameplay : MonoBehaviour {
     private List<GameObject> imgDisabled = new List<GameObject>();
     private List<GameObject> imgChosen = new List<GameObject>();
     private List<GameObject> finishObject = new List<GameObject>();
+    private List<GameObject> gameOverComponent = new List<GameObject>();
 
     private int selected = -1;
 
@@ -28,6 +35,8 @@ public class HardGameplay : MonoBehaviour {
         PlayerPrefs.SetInt("selected", -1);
 
         level = PlayerPrefs.GetInt("level");
+
+        score.text = PlayerPrefs.GetInt("score").ToString();
 
         if (PlayerPrefs.GetInt("mode") == 0)
         {
@@ -37,11 +46,15 @@ public class HardGameplay : MonoBehaviour {
         // if relax then hide time
         if (relax)
         {
-            time.SetActive(false);
+            time.gameObject.SetActive(false);
         }
         else
         {
-            time.SetActive(true);
+            time.gameObject.SetActive(true);
+            time_start = Time.time;
+            time_value = PlayerPrefs.GetFloat("time");
+            time_init = time_value;
+            time.text = ((int) time_value).ToString();
         }
 
         transform.gameObject.SetActive(true);
@@ -149,7 +162,6 @@ public class HardGameplay : MonoBehaviour {
         }
         else // (level == 4)
         {
-            Debug.Log("yeyeyey");
             for (int i = 0; i < questions.Count; i++)
             {
                 List<GameObject> items = new List<GameObject>();
@@ -213,7 +225,7 @@ public class HardGameplay : MonoBehaviour {
                     subitems[0].GetComponent<InputField>().text = "".ToString();
                     subitems[2].GetComponent<InputField>().text = "".ToString();
 
-                    numbers.Add((float)6 / (float)8);
+                    numbers.Add((float)8 / (float)12);
                     numerators.Add(-1);
                     denumerators.Add(-1);
                 }
@@ -257,6 +269,30 @@ public class HardGameplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (!relax)
+        {
+            if (!stop_time)
+            {
+                time_value = time_init - (Time.time - time_start);
+
+                if (time_value <= 0)
+                {
+                    int score_value = Int32.Parse(score.text);
+                    // finishObject = Finish.Gameobject
+                    foreach (RectTransform t in gameOver.transform)
+                    {
+                        gameOverComponent.Add(t.gameObject);
+                    }
+                    gameOverComponent[5].GetComponent<Text>().text = score_value.ToString();
+                    gameOver.SetActive(true);
+
+                    stop_time = true;
+                }
+
+                time.text = ((int)time_value).ToString();
+            }
+        }
+
         int prefs = PlayerPrefs.GetInt("selected");
 
         if (prefs > -1 && prefs == selected) // unselect an image
@@ -314,9 +350,13 @@ public class HardGameplay : MonoBehaviour {
                         {
                             level++;
                             PlayerPrefs.SetInt("level", level);
+                            PlayerPrefs.SetInt("score", score_value);
+                            PlayerPrefs.SetFloat("time", time_value);
                             SceneManager.LoadScene(3 + level);
                         } else // (level == 4)
                         {
+                            // Finish Condition
+                            // finishObject = Finish.Gameobject
                             foreach (RectTransform t in Finish.transform)
                             {
                                 finishObject.Add(t.gameObject);
@@ -377,13 +417,23 @@ public class HardGameplay : MonoBehaviour {
             if (gameObject.name == "Num")
             {
                 numerators[tag] = Int32.Parse(gameObject.GetComponent<InputField>().text);
-                Debug.Log("num:" + numerators[tag]);
             }
             else
             {
                 denumerators[tag] = Int32.Parse(gameObject.GetComponent<InputField>().text);
-                Debug.Log("denum:" + denumerators[tag]);
             }
         }
+    }
+
+    public void PauseGame()
+    {
+        time_init = time_value;
+        stop_time = true;
+    }
+
+    public void ResumeGame()
+    {
+        time_start = Time.time;
+        stop_time = false;
     }
 }
