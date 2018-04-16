@@ -54,7 +54,7 @@ public class EasyGameplay : MonoBehaviour {
             time.gameObject.SetActive(true);
             time_start = Time.time;
             time_value = 300;
-            time_init = 301;
+            time_init = 11;
             if (level == 0)
             {
                 PlayerPrefs.SetFloat("time", time_value);
@@ -412,7 +412,8 @@ public class EasyGameplay : MonoBehaviour {
                 }
                 else
                 {
-                    score_value = (Int32.Parse(score.text) - 10);
+                    //score_value = (Int32.Parse(score.text) - 10);
+                    score_value = Int32.Parse(score.text);
 
                     // turn on normal mode for image
                     img[selected].SetActive(true);
@@ -500,7 +501,8 @@ public class EasyGameplay : MonoBehaviour {
                 }
                 else
                 {
-                    score_value = (Int32.Parse(score.text) - 10);
+                    //score_value = (Int32.Parse(score.text) - 10);
+                    score_value = Int32.Parse(score.text);
 
                     // turn on normal mode for image
                     img[selected].SetActive(true);

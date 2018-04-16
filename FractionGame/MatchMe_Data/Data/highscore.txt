@@ -1,1 +1,10 @@
+<<<<<<< HEAD
 rachel 160
+=======
+5
+aaaaa 60
+player 60
+player 60
+player 50
+ 40
+>>>>>>> ecf13460695b23596e02fb3f04e03b2255faf900

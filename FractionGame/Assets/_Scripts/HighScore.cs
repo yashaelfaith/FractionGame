@@ -54,20 +54,21 @@ public class HighScore : MonoBehaviour {
 
         // parsing external file by '\n'
         List<string> rankData = content.Split('\n').ToList();
-        int length = rankData.Count;
+        int length = Int32.Parse(rankData[0]);
+        /*int length = rankData.Count;
         if (rankData[0] == "")
         {
             length = 0;
-        }
+        }*/
         for (int i = 0; i < length; i++)
         {
             // parsing external file by ' '
-            List<string> data = rankData[i].Split(' ').ToList();
+            List<string> data = rankData[i + 1].Split(' ').ToList();
 
             // changing the text based on external file
             if (data[0] == "")
             {
-                topData[i].Username.text = "";
+                topData[i].Username.text = "player";
             } else
             {
                 topData[i].Username.text = data[0];
