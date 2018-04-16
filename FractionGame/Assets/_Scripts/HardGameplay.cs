@@ -368,7 +368,8 @@ public class HardGameplay : MonoBehaviour {
                 }
                 else
                 {
-                    score_value = (Int32.Parse(score.text) - 10);
+                    //score_value = (Int32.Parse(score.text) - 10);
+                    score_value = Int32.Parse(score.text);
 
                     // turn on normal mode for image
                     img[selected].SetActive(true);
