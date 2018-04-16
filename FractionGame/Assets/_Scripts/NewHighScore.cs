@@ -84,30 +84,32 @@ public class NewHighScore : MonoBehaviour {
         }
     }
 	
-	void Update () {        
-        // Function check if the user got into the top 5
-        // Checking only done once, when it is GameOver or Finished and haven't input username
-        if ( ( (GameOver.activeSelf) || (Finish.activeSelf) ) && (!doneInput) && (!hasChecked) )
+	void Update () {
+        if (PlayerPrefs.GetInt("mode") == 1)
         {
-            if (isEmpty || length < 5)
+            // Function check if the user got into the top 5
+            // Checking only done once, when it is GameOver or Finished and haven't input username
+            if (((GameOver.activeSelf) || (Finish.activeSelf)) && (!doneInput) && (!hasChecked))
             {
-                newHighScore = true;
-            }
-            for (int i = 0; i < length; i++)
-            {
-                if (Int32.Parse(currentScore.text) > rankData[i].Score)
+                if (isEmpty || length < 5)
                 {
                     newHighScore = true;
                 }
+                for (int i = 0; i < length; i++)
+                {
+                    if (Int32.Parse(currentScore.text) > rankData[i].Score)
+                    {
+                        newHighScore = true;
+                    }
+                }
+                // Showing the InsertName Display if current score is a new HighScore
+                if (newHighScore)
+                {
+                    InsertName.SetActive(true);
+                }
+                hasChecked = true;
             }
-            // Showing the InsertName Display if current score is a new HighScore
-            if (newHighScore)
-            {
-                InsertName.SetActive(true);
-            }
-            hasChecked = true;
         }
-
     }
 
     // Function triggered when done giving input

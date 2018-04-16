@@ -54,7 +54,7 @@ public class EasyGameplay : MonoBehaviour {
             time.gameObject.SetActive(true);
             time_start = Time.time;
             time_value = 300;
-            time_init = 11;
+            time_init = 301;
             if (level == 0)
             {
                 PlayerPrefs.SetFloat("time", time_value);
@@ -318,7 +318,6 @@ public class EasyGameplay : MonoBehaviour {
                 if (time_value <= 0)
                 {
                     int score_value = Int32.Parse(score.text);
-                    // finishObject = Finish.Gameobject
                     foreach (RectTransform t in gameOver.transform)
                     {
                         gameOverComponent.Add(t.gameObject);
