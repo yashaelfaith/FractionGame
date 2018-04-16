@@ -1,2 +1,3 @@
+2
 player 50
 ggg 20

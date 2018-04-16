@@ -54,7 +54,7 @@ public class EasyGameplay : MonoBehaviour {
             time.gameObject.SetActive(true);
             time_start = Time.time;
             time_value = 300;
-            time_init = 301;
+            time_init = 11;
             if (level == 0)
             {
                 PlayerPrefs.SetFloat("time", time_value);

@@ -66,17 +66,18 @@ public class NewHighScore : MonoBehaviour {
         
         // parsing external file by '\n'
         rankParse = content.Split('\n').ToList();
-        if (rankParse[0] == "")
-            isEmpty = true;
+        /*if (rankParse[0] == "")
+            isEmpty = true;*/
         // making list of user from rankParse
+        length = Int32.Parse(rankParse[0]);
         rankData = new List<User>();
-        if (!isEmpty)
+        /*if (!isEmpty)
         {
             length = rankParse.Count;
-        }
+        }*/
         for (int i = 0; i < length; i++)
         {
-            List<string> data = rankParse[i].Split(' ').ToList();
+            List<string> data = rankParse[i + 1].Split(' ').ToList();
             rankData.Add(new User());
             rankData[i].Username = data[0];
             rankData[i].Score = Int32.Parse(data[1]);
@@ -128,6 +129,7 @@ public class NewHighScore : MonoBehaviour {
         if (listLength > 5)
             listLength = 5;
 
+        writer.WriteLine(listLength.ToString());
         for (int i = 0; i < listLength; i++)
         {
             writer.Write(sortedList[i].Username);
