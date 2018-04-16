@@ -58,10 +58,12 @@ public class HardGameplay : MonoBehaviour {
         }
 
         transform.gameObject.SetActive(true);
-        foreach (RectTransform t in transform)
+        Transform scaler = transform.GetChild(0);
+        foreach (RectTransform t in scaler)
         {
             questions.Add(t.gameObject);
         }
+
         if (level == 3)
         {
             for (int i = 0; i < questions.Count; i++)

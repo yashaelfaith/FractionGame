@@ -71,10 +71,12 @@ public class EasyGameplay : MonoBehaviour {
         if (level == 0 || level == 1 || level == 2)
         {
             transform.gameObject.SetActive(true);
-            foreach (RectTransform t in transform)
+            Transform scaler = transform.GetChild(0); 
+            foreach (RectTransform t in scaler)
             {
                 questions.Add(t.gameObject);
             }
+            
             if (level == 0) // Level 1
             {
                 for (int i = 0; i < questions.Count; i++)
@@ -101,33 +103,33 @@ public class EasyGameplay : MonoBehaviour {
                     // initialize fraction value and images
                     if (i == 0)
                     {
-                        subitems[0].GetComponent<TextMesh>().text = 3.ToString();
-                        subitems[2].GetComponent<TextMesh>().text = 9.ToString();
+                        subitems[0].GetComponent<InputField>().text = 3.ToString();
+                        subitems[2].GetComponent<InputField>().text = 9.ToString();
                         numbers.Add((float)3 / (float)9);
                     } else if (i == 1)
                     {
-                        subitems[0].GetComponent<TextMesh>().text = 1.ToString();
-                        subitems[2].GetComponent<TextMesh>().text = 3.ToString();
+                        subitems[0].GetComponent<InputField>().text = 1.ToString();
+                        subitems[2].GetComponent<InputField>().text = 3.ToString();
                         numbers.Add((float)1 / (float)3);
                     } else if (i == 2)
                     {
-                        subitems[0].GetComponent<TextMesh>().text = 1.ToString();
-                        subitems[2].GetComponent<TextMesh>().text = 2.ToString();
+                        subitems[0].GetComponent<InputField>().text = 1.ToString();
+                        subitems[2].GetComponent<InputField>().text = 2.ToString();
                         numbers.Add((float)1 / (float)2);
                     } else if (i == 3)
                     {
-                        subitems[0].GetComponent<TextMesh>().text = 2.ToString();
-                        subitems[2].GetComponent<TextMesh>().text = 4.ToString();
+                        subitems[0].GetComponent<InputField>().text = 2.ToString();
+                        subitems[2].GetComponent<InputField>().text = 4.ToString();
                         numbers.Add((float)2 / (float)4);
                     } else if (i == 4)
                     {
-                        subitems[0].GetComponent<TextMesh>().text = 6.ToString();
-                        subitems[2].GetComponent<TextMesh>().text = 8.ToString();
+                        subitems[0].GetComponent<InputField>().text = 6.ToString();
+                        subitems[2].GetComponent<InputField>().text = 8.ToString();
                         numbers.Add((float)6 / (float)8);
                     } else // (i == 5)
                     {
-                        subitems[0].GetComponent<TextMesh>().text = 3.ToString();
-                        subitems[2].GetComponent<TextMesh>().text = 4.ToString();
+                        subitems[0].GetComponent<InputField>().text = 3.ToString();
+                        subitems[2].GetComponent<InputField>().text = 4.ToString();
                         numbers.Add((float)3 / (float)4);
                     } 
                 }
