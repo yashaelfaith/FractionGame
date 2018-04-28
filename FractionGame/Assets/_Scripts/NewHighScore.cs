@@ -60,7 +60,7 @@ public class NewHighScore : MonoBehaviour {
         if (!File.Exists(path + "/MatchMe_Data/Data/highscore.txt"))
         {
             Directory.CreateDirectory(path + "/MatchMe_Data/Data");
-            File.WriteAllText(path + "/MatchMe_Data/Data/highscore.txt", "player 50");
+            File.WriteAllText(path + "/MatchMe_Data/Data/highscore.txt", "0\n");
         }
         content = File.ReadAllText(path + "/MatchMe_Data/Data/highscore.txt");
         
@@ -89,7 +89,7 @@ public class NewHighScore : MonoBehaviour {
         {
             // Function check if the user got into the top 5
             // Checking only done once, when it is GameOver or Finished and haven't input username
-            if (((GameOver.activeSelf) || (Finish.activeSelf)) && (!doneInput) && (!hasChecked))
+            if (((GameOver.activeSelf) || (Finish != null && Finish.activeSelf)) && (!doneInput) && (!hasChecked))
             {
                 if (isEmpty || length < 5)
                 {

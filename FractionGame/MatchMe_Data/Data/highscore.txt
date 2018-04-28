@@ -1,6 +1,6 @@
 5
-player 170
 player 60
 player 60
-me 50
-player 10
+player 50
+player 50
+player 50

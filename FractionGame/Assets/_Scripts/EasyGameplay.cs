@@ -25,11 +25,14 @@ public class EasyGameplay : MonoBehaviour {
     private List<GameObject> imgDisabled = new List<GameObject>();
     private List<GameObject> imgChosen = new List<GameObject>();
     private List<GameObject> gameOverComponent = new List<GameObject>();
+    private AudioSource audio_source = new AudioSource();
+    private AudioClip clip;
 
     private int selected = -1;
 
     // Use this for initialization
     void Start () {
+        audio_source = GetComponent<AudioSource>();
         PlayerPrefs.SetInt("selected", -1);
 
         level = PlayerPrefs.GetInt("level");
@@ -326,6 +329,9 @@ public class EasyGameplay : MonoBehaviour {
                     gameOver.SetActive(true);
 
                     stop_time = true;
+                    clip = Resources.Load("Sound/" + "times up", typeof(AudioClip)) as AudioClip;
+                    audio_source.clip = clip;
+                    audio_source.Play();
                 }
                 time.text = ((int) time_value).ToString();
                 RelaxMode();
@@ -399,14 +405,19 @@ public class EasyGameplay : MonoBehaviour {
                         }
                     }
 
+                    clip = Resources.Load("Sound/" + "woohoo", typeof(AudioClip)) as AudioClip;
+                    audio_source.clip = clip;
+                    audio_source.Play();
+
                     // go to next level
                     if (allDisabled)
                     {
                         level++;
+                        stop_time = true;
                         PlayerPrefs.SetInt("level", level);
                         PlayerPrefs.SetInt("score", score_value);
                         PlayerPrefs.SetFloat("time", time_value);
-                        SceneManager.LoadScene(3 + level);
+                        StartCoroutine(DelaySceneLoad(3 + level));
                     }
                 }
                 else
@@ -422,6 +433,10 @@ public class EasyGameplay : MonoBehaviour {
                     img[prefs].SetActive(true);
                     imgChosen[prefs].SetActive(false);
                     imgDisabled[prefs].SetActive(false);
+
+                    clip = Resources.Load("Sound/" + "noo", typeof(AudioClip)) as AudioClip;
+                    audio_source.clip = clip;
+                    audio_source.Play();
                 }
 
                 // print the score to UI
@@ -488,14 +503,19 @@ public class EasyGameplay : MonoBehaviour {
                         }
                     }
 
+                    clip = Resources.Load("Sound/" + "woohoo", typeof(AudioClip)) as AudioClip;
+                    audio_source.clip = clip;
+                    audio_source.Play();
+
                     // go to next level
                     if (allDisabled)
                     {
                         level++;
+                        stop_time = true;
                         PlayerPrefs.SetInt("level", level);
                         PlayerPrefs.SetInt("score", score_value);
                         PlayerPrefs.SetFloat("time", time_value);
-                        SceneManager.LoadScene(3 + level);
+                        StartCoroutine(DelaySceneLoad(3 + level));
                     }
                 }
                 else
@@ -511,6 +531,10 @@ public class EasyGameplay : MonoBehaviour {
                     img[prefs].SetActive(true);
                     imgChosen[prefs].SetActive(false);
                     imgDisabled[prefs].SetActive(false);
+
+                    clip = Resources.Load("Sound/" + "noo", typeof(AudioClip)) as AudioClip;
+                    audio_source.clip = clip;
+                    audio_source.Play();
                 }
 
                 // print the score to UI
@@ -592,5 +616,11 @@ public class EasyGameplay : MonoBehaviour {
     {
         time_start = Time.time;
         stop_time = false;
+    }
+
+    IEnumerator DelaySceneLoad(int index)
+    {
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(index);
     }
 }
